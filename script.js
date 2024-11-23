@@ -33,6 +33,8 @@ function displayVendors(vendors) {
       const logo = vendor["Logo URL"]
         ? vendor["Logo URL"]
         : "https://via.placeholder.com/50?text=🏢";
+      const contractLink = vendor["Contract Link"] || "#";
+      const siteLink = vendor["Website"] || "#";
       return `
         <div class="card">
           <img src="${logo}" alt="${vendor['Vendor Name']}">
@@ -42,7 +44,15 @@ function displayVendors(vendors) {
             <p>Email: <a href="mailto:${vendor.Email}">${vendor.Email}</a></p>
           </div>
           <div class="actions">
-            <a href="tel:${vendor.Phone}">Call</a>
+            <div class="dropdown">
+              <button class="dropdown-button">Options</button>
+              <div class="dropdown-menu">
+                <a href="tel:${vendor.Phone}">Call</a>
+                <a href="mailto:${vendor.Email}">Email</a>
+                <a href="${siteLink}" target="_blank">Visit Site</a>
+                <a href="${contractLink}" target="_blank">Contract Link</a>
+              </div>
+            </div>
           </div>
         </div>
       `;
