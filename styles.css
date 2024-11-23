@@ -9,6 +9,7 @@ body {
 header {
   display: flex;
   align-items: center;
+  justify-content: flex-start;
   padding: 1em;
   background: white;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -16,6 +17,13 @@ header {
 
 .logo {
   height: 40px;
+}
+
+header h1 {
+  margin-left: 1em;
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #333;
 }
 
 /* Search Bar */
@@ -83,17 +91,6 @@ header {
   flex-direction: column;
 }
 
-.card .actions a {
-  margin: 0.5em 0;
-  text-decoration: none;
-  color: white;
-  background: #007bff;
-  padding: 0.5em 1em;
-  border-radius: 5px;
-  text-align: center;
-  font-size: 0.8em;
-}
-
 .status {
   display: inline-block;
   padding: 0.2em 0.5em;
@@ -106,3 +103,52 @@ header {
 .status.pending { background: yellow; color: black; }
 .status.suspended { background: red; }
 .status.idle { background: gray; }
+
+/* Dropdown Styles */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-button {
+  background-color: #007bff;
+  color: white;
+  padding: 0.5em 1em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9em;
+}
+
+.dropdown-button:hover {
+  background-color: #0056b3;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.dropdown-menu a {
+  display: block;
+  padding: 0.5em 1em;
+  text-decoration: none;
+  color: #333;
+  font-size: 0.9em;
+}
+
+.dropdown-menu a:hover {
+  background-color: #f0f0f0;
+}
+
+/* Show dropdown menu on hover */
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
