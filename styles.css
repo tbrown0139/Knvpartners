@@ -63,6 +63,12 @@ header h1 {
   padding: 1em;
   display: flex;
   align-items: center;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 
 .card img {
@@ -86,11 +92,6 @@ header h1 {
   font-size: 0.9em;
 }
 
-.card .actions {
-  display: flex;
-  flex-direction: column;
-}
-
 .status {
   display: inline-block;
   padding: 0.2em 0.5em;
@@ -104,51 +105,44 @@ header h1 {
 .status.suspended { background: red; }
 .status.idle { background: gray; }
 
-/* Dropdown Styles */
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.dropdown-button {
-  background-color: #007bff;
-  color: white;
-  padding: 0.5em 1em;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 0.9em;
-}
-
-.dropdown-button:hover {
-  background-color: #0056b3;
-}
-
-.dropdown-menu {
-  display: none;
-  position: absolute;
-  top: 100%;
+/* Overlay Styles */
+.overlay {
+  position: fixed;
+  top: 0;
   left: 0;
-  background-color: white;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  border-radius: 5px;
-  overflow: hidden;
-  z-index: 1;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
 
-.dropdown-menu a {
-  display: block;
-  padding: 0.5em 1em;
-  text-decoration: none;
-  color: #333;
-  font-size: 0.9em;
+.hidden {
+  display: none;
 }
 
-.dropdown-menu a:hover {
-  background-color: #f0f0f0;
+.overlay-content {
+  background: white;
+  padding: 2em;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
 }
 
-/* Show dropdown menu on hover */
-.dropdown:hover .dropdown-menu {
-  display: block;
+.overlay-content h2 {
+  margin-top: 0;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 2em;
+  cursor: pointer;
+  color: white;
 }
