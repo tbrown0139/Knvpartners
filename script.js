@@ -1,5 +1,13 @@
 const vendorCards = document.getElementById("vendor-cards");
 const searchInput = document.getElementById("search");
+const overlay = document.getElementById("overlay");
+const closeOverlay = document.getElementById("close-overlay");
+
+const vendorName = document.getElementById("vendor-name");
+const vendorID = document.getElementById("vendor-id");
+const vendorOwner = document.getElementById("vendor-owner");
+const companyEmail = document.getElementById("company-email");
+const contractLink = document.getElementById("contract-link");
 
 // Replace with your Google Sheets CSV link
 const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQClSTXfBj0dP4OqdtKF5uYTV4GydYRlEMR-Mbp2aP8qgHZZFIJVeTKFj1amANnwe8kBq8SDWLKwZKa/pub?output=csv";
@@ -28,37 +36,45 @@ function parseCSV(text) {
 // Render vendors as cards
 function displayVendors(vendors) {
   vendorCards.innerHTML = vendors
-    .map((vendor) => {
+    .map((vendor, index) => {
       const statusClass = vendor.Status.toLowerCase();
       const logo = vendor["Logo URL"]
         ? vendor["Logo URL"]
         : "https://via.placeholder.com/50?text=🏢";
-      const contractLink = vendor["Contract Link"] || "#";
-      const siteLink = vendor["Website"] || "#";
       return `
-        <div class="card">
+        <div class="card" data-index="${index}">
           <img src="${logo}" alt="${vendor['Vendor Name']}">
           <div class="info">
             <h3>${vendor['Vendor Name']}</h3>
             <span class="status ${statusClass}">${vendor.Status}</span>
-            <p>Email: <a href="mailto:${vendor.Email}">${vendor.Email}</a></p>
-          </div>
-          <div class="actions">
-            <div class="dropdown">
-              <button class="dropdown-button">Options</button>
-              <div class="dropdown-menu">
-                <a href="tel:${vendor.Phone}">Call</a>
-                <a href="mailto:${vendor.Email}">Email</a>
-                <a href="${siteLink}" target="_blank">Visit Site</a>
-                <a href="${contractLink}" target="_blank">Contract Link</a>
-              </div>
-            </div>
           </div>
         </div>
       `;
     })
     .join("");
+
+  document.querySelectorAll(".card").forEach((card, index) => {
+    card.addEventListener("click", () => {
+      showVendorOverlay(vendors[index]);
+    });
+  });
 }
+
+// Show overlay with vendor details
+function showVendorOverlay(vendor) {
+  vendorName.textContent = vendor["Vendor Name"];
+  vendorID.textContent = vendor["Vendor ID"];
+  vendorOwner.textContent = vendor["Owner"];
+  companyEmail.textContent = vendor["CO-Email"];
+  companyEmail.href = `mailto:${vendor["CO-Email"]}`;
+  contractLink.href = vendor["Contract Link"];
+  overlay.classList.remove("hidden");
+}
+
+// Hide overlay
+closeOverlay.addEventListener("click", () => {
+  overlay.classList.add("hidden");
+});
 
 // Search functionality
 searchInput.addEventListener("input", (e) => {
